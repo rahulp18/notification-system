@@ -409,3 +409,11 @@ Built as part of learning journey to become:
 > Backend Engineer + AI System Engineer 🚀
 
 ---
+
+🚀 How to Run the Project
+
+👉 For complete setup instructions, follow the guide below:
+
+📖 Run Guide
+
+<a href='/project-run.md' > View Project Setup Instructions</a>
