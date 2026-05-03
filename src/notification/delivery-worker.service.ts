@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { DeliveryStatus, NotificationStatus } from '../prisma/generated/enums';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -6,7 +7,10 @@ import { PrismaService } from '../prisma/prisma.service';
 export class DeliveryWorkerService {
   private readonly logger = new Logger(DeliveryWorkerService.name);
   constructor(private readonly prisma: PrismaService) {}
-
+  @Cron(CronExpression.EVERY_5_SECONDS)
+  async handleCron() {
+    await this.processPendingDeliveries();
+  }
   async processPendingDeliveries(): Promise<void> {
     const now = new Date();
     const deliveries = await this.prisma.notificationDelivery.findMany({
