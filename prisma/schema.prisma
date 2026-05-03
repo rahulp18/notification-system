@@ -7,13 +7,175 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
+model NotificationEvent {
+  id             String      @id @default(uuid())
+  eventType      String
+  payload        Json
+  userId         String?
+  email          String?
+  phone          String?
+  idempotencyKey String      @unique
+  status         EventStatus @default(RECEIVED)
+  failureReason  String?
+  processedAt    DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  aiDecision    AIDecision?
+  notifications Notification[]
+
+  @@index([userId])
+  @@index([eventType])
+}
+
+model AIDecision {
+  id      String            @id @default(uuid())
+  eventId String            @unique
+  event   NotificationEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  shouldSend Boolean
+  priority   NotificationPriority
+  message    String
+
+  modelUsed    String?
+  latencyMs    Int?
+  confidence   Float?
+  isOverridden Boolean @default(false)
+  isCached     Boolean @default(false)
+  errorMessage String?
+
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id      String            @id @default(uuid())
+  eventId String
+  event   NotificationEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  userId String
+
+  message  String
+  priority NotificationPriority
+  status   NotificationStatus   @default(PENDING)
+
+  scheduledAt DateTime?
+  deliveredAt DateTime?
+  expiresAt   DateTime?
+  cancelledAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  deliveries NotificationDelivery[]
+
+  @@index([userId])
+  @@index([priority, status])
+}
+
+model NotificationDelivery {
+  id             String       @id @default(uuid())
+  notificationId String
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  channel  NotificationChannel
+  provider String
+
+  status            DeliveryStatus @default(PENDING)
+  retryCount        Int            @default(0)
+  maxRetries        Int            @default(3)
+  providerMessageId String?
+
+  nextRetryAt   DateTime?
+  lastAttemptAt DateTime?
+  deliveredAt   DateTime?
+
+  errorMessage String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([email])
+  attempts DeliveryAttempt[]
+
+  @@index([status, nextRetryAt])
+  @@index([notificationId])
+}
+
+model DeliveryAttempt {
+  id         String               @id @default(uuid())
+  deliveryId String
+  delivery   NotificationDelivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+
+  attemptNumber Int
+  status        DeliveryStatus
+  response      Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([deliveryId])
+}
+
+model DeadLetterQueue {
+  id             String               @id @default(uuid())
+  deliveryId     String?
+  eventId        String?
+  notificationId String?
+  channel        NotificationChannel?
+  payload        Json
+  reason         String
+
+  resolvedAt DateTime?
+  resolvedBy String?
+  createdAt  DateTime  @default(now())
+}
+
+model UserPreference {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  emailEnabled Boolean @default(true)
+  smsEnabled   Boolean @default(true)
+  pushEnabled  Boolean @default(true)
+
+  marketingOptIn  Boolean @default(false)
+  timezone        String  @default("UTC")
+  quietHoursStart Int?
+  quietHoursEnd   Int?
+  frequencyLimit  Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum EventStatus {
+  RECEIVED
+  QUEUED
+  PROCESSED
+  FAILED
+}
+
+enum NotificationStatus {
+  PENDING
+  QUEUED
+  SENT
+  FAILED
+  CANCELLED
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+  RETRYING
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum NotificationPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
 }

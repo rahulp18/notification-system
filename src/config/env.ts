@@ -1,9 +1,16 @@
-import dotEnv from 'dotenv';
-import * as z from 'zod';
-dotEnv.config();
-const envSchema = z.object({
-  DATABASE_URL: z.string().nonempty(),
+import { z } from 'zod';
+
+export const envSchema = z.object({
+  DATABASE_URL: z.string().min(1),
+  PORT: z.coerce.number().default(4200),
 });
-export const env = envSchema.parse({
-  DATABASE_URL: process.env.DATABASE_URL,
-});
+
+export type Env = z.infer<typeof envSchema>;
+
+export function validate(config: Record<string, unknown>): Env {
+  const result = envSchema.safeParse(config);
+  if (!result.success) {
+    throw new Error(`Config validation error: ${result.error.message}`);
+  }
+  return result.data;
+}

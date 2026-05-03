@@ -18,7 +18,37 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model User
+ * Model NotificationEvent
  * 
  */
-export type User = Prisma.UserModel
+export type NotificationEvent = Prisma.NotificationEventModel
+/**
+ * Model AIDecision
+ * 
+ */
+export type AIDecision = Prisma.AIDecisionModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model NotificationDelivery
+ * 
+ */
+export type NotificationDelivery = Prisma.NotificationDeliveryModel
+/**
+ * Model DeliveryAttempt
+ * 
+ */
+export type DeliveryAttempt = Prisma.DeliveryAttemptModel
+/**
+ * Model DeadLetterQueue
+ * 
+ */
+export type DeadLetterQueue = Prisma.DeadLetterQueueModel
+/**
+ * Model UserPreference
+ * 
+ */
+export type UserPreference = Prisma.UserPreferenceModel

@@ -51,7 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  NotificationEvent: 'NotificationEvent',
+  AIDecision: 'AIDecision',
+  Notification: 'Notification',
+  NotificationDelivery: 'NotificationDelivery',
+  DeliveryAttempt: 'DeliveryAttempt',
+  DeadLetterQueue: 'DeadLetterQueue',
+  UserPreference: 'UserPreference'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,15 +76,124 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const NotificationEventScalarFieldEnum = {
   id: 'id',
+  eventType: 'eventType',
+  payload: 'payload',
+  userId: 'userId',
   email: 'email',
-  password: 'password',
+  phone: 'phone',
+  idempotencyKey: 'idempotencyKey',
+  status: 'status',
+  failureReason: 'failureReason',
+  processedAt: 'processedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type NotificationEventScalarFieldEnum = (typeof NotificationEventScalarFieldEnum)[keyof typeof NotificationEventScalarFieldEnum]
+
+
+export const AIDecisionScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  shouldSend: 'shouldSend',
+  priority: 'priority',
+  message: 'message',
+  modelUsed: 'modelUsed',
+  latencyMs: 'latencyMs',
+  confidence: 'confidence',
+  isOverridden: 'isOverridden',
+  isCached: 'isCached',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
+} as const
+
+export type AIDecisionScalarFieldEnum = (typeof AIDecisionScalarFieldEnum)[keyof typeof AIDecisionScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  message: 'message',
+  priority: 'priority',
+  status: 'status',
+  scheduledAt: 'scheduledAt',
+  deliveredAt: 'deliveredAt',
+  expiresAt: 'expiresAt',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationDeliveryScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  channel: 'channel',
+  provider: 'provider',
+  status: 'status',
+  retryCount: 'retryCount',
+  maxRetries: 'maxRetries',
+  providerMessageId: 'providerMessageId',
+  nextRetryAt: 'nextRetryAt',
+  lastAttemptAt: 'lastAttemptAt',
+  deliveredAt: 'deliveredAt',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationDeliveryScalarFieldEnum = (typeof NotificationDeliveryScalarFieldEnum)[keyof typeof NotificationDeliveryScalarFieldEnum]
+
+
+export const DeliveryAttemptScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  attemptNumber: 'attemptNumber',
+  status: 'status',
+  response: 'response',
+  createdAt: 'createdAt'
+} as const
+
+export type DeliveryAttemptScalarFieldEnum = (typeof DeliveryAttemptScalarFieldEnum)[keyof typeof DeliveryAttemptScalarFieldEnum]
+
+
+export const DeadLetterQueueScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  eventId: 'eventId',
+  notificationId: 'notificationId',
+  channel: 'channel',
+  payload: 'payload',
+  reason: 'reason',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type DeadLetterQueueScalarFieldEnum = (typeof DeadLetterQueueScalarFieldEnum)[keyof typeof DeadLetterQueueScalarFieldEnum]
+
+
+export const UserPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  emailEnabled: 'emailEnabled',
+  smsEnabled: 'smsEnabled',
+  pushEnabled: 'pushEnabled',
+  marketingOptIn: 'marketingOptIn',
+  timezone: 'timezone',
+  quietHoursStart: 'quietHoursStart',
+  quietHoursEnd: 'quietHoursEnd',
+  frequencyLimit: 'frequencyLimit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserPreferenceScalarFieldEnum = (typeof UserPreferenceScalarFieldEnum)[keyof typeof UserPreferenceScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -89,10 +204,42 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

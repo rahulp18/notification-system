@@ -29,8 +29,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more NotificationEvents
+ * const notificationEvents = await prisma.notificationEvent.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,7 +40,37 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model User
+ * Model NotificationEvent
  * 
  */
-export type User = Prisma.UserModel
+export type NotificationEvent = Prisma.NotificationEventModel
+/**
+ * Model AIDecision
+ * 
+ */
+export type AIDecision = Prisma.AIDecisionModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model NotificationDelivery
+ * 
+ */
+export type NotificationDelivery = Prisma.NotificationDeliveryModel
+/**
+ * Model DeliveryAttempt
+ * 
+ */
+export type DeliveryAttempt = Prisma.DeliveryAttemptModel
+/**
+ * Model DeadLetterQueue
+ * 
+ */
+export type DeadLetterQueue = Prisma.DeadLetterQueueModel
+/**
+ * Model UserPreference
+ * 
+ */
+export type UserPreference = Prisma.UserPreferenceModel

@@ -8,5 +8,11 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
+export type * from './models/NotificationEvent'
+export type * from './models/AIDecision'
+export type * from './models/Notification'
+export type * from './models/NotificationDelivery'
+export type * from './models/DeliveryAttempt'
+export type * from './models/DeadLetterQueue'
+export type * from './models/UserPreference'
 export type * from './commonInputTypes'
