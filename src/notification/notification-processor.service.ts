@@ -7,13 +7,17 @@ import {
   DEFAULT_PRIORITY,
   EVENT_PRIORITY_MAP,
 } from './enums/event-priority.map';
+import { NotificationDeliveryService } from './notification-delivery.service';
 import { NotificationMessageFactory } from './notification-message.factory';
 
 @Injectable()
 export class NotificationProcessorService {
   private readonly logger = new Logger(NotificationProcessorService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationDeliveryService: NotificationDeliveryService,
+  ) {}
 
   async processEvent(eventId: string): Promise<void> {
     const event = await this.prisma.notificationEvent.findUnique({
@@ -41,16 +45,11 @@ export class NotificationProcessorService {
     // Decision Layer
     const shouldSend = this.shouldSend(event);
     const priority = EVENT_PRIORITY_MAP[event.eventType] ?? DEFAULT_PRIORITY;
-    // if (priority === NotificationPriority.LOW) {
-    //   this.logger.debug(
-    //     `Processing low priority event ${eventId} with type ${event.eventType}`,
-    //   );
-    //   await this.markEventAsProcessed(eventId);
-    //   return;
-    // }
+
     const message = NotificationMessageFactory.build(event);
 
     try {
+      let notificationId: string | undefined;
       await this.prisma.$transaction(async (tx) => {
         const results = await tx.notificationEvent.updateMany({
           where: {
@@ -69,7 +68,7 @@ export class NotificationProcessorService {
           return;
         }
         if (shouldSend) {
-          await tx.notification.create({
+          const notification = await tx.notification.create({
             data: {
               userId: event.userId!,
               eventId: event.id,
@@ -77,8 +76,14 @@ export class NotificationProcessorService {
               message,
             },
           });
+          notificationId = notification.id;
         }
       });
+      if (notificationId) {
+        await this.notificationDeliveryService.createDeliveriesForNotification(
+          notificationId,
+        );
+      }
       this.logger.log(
         `Successfully processed event ${eventId} with priority ${priority}`,
       );
