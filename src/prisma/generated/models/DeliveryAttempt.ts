@@ -38,6 +38,7 @@ export type DeliveryAttemptMinAggregateOutputType = {
   id: string | null
   deliveryId: string | null
   attemptNumber: number | null
+  errorMessage: string | null
   status: $Enums.DeliveryStatus | null
   createdAt: Date | null
 }
@@ -46,6 +47,7 @@ export type DeliveryAttemptMaxAggregateOutputType = {
   id: string | null
   deliveryId: string | null
   attemptNumber: number | null
+  errorMessage: string | null
   status: $Enums.DeliveryStatus | null
   createdAt: Date | null
 }
@@ -54,6 +56,7 @@ export type DeliveryAttemptCountAggregateOutputType = {
   id: number
   deliveryId: number
   attemptNumber: number
+  errorMessage: number
   status: number
   response: number
   createdAt: number
@@ -73,6 +76,7 @@ export type DeliveryAttemptMinAggregateInputType = {
   id?: true
   deliveryId?: true
   attemptNumber?: true
+  errorMessage?: true
   status?: true
   createdAt?: true
 }
@@ -81,6 +85,7 @@ export type DeliveryAttemptMaxAggregateInputType = {
   id?: true
   deliveryId?: true
   attemptNumber?: true
+  errorMessage?: true
   status?: true
   createdAt?: true
 }
@@ -89,6 +94,7 @@ export type DeliveryAttemptCountAggregateInputType = {
   id?: true
   deliveryId?: true
   attemptNumber?: true
+  errorMessage?: true
   status?: true
   response?: true
   createdAt?: true
@@ -185,6 +191,7 @@ export type DeliveryAttemptGroupByOutputType = {
   id: string
   deliveryId: string
   attemptNumber: number
+  errorMessage: string | null
   status: $Enums.DeliveryStatus
   response: runtime.JsonValue | null
   createdAt: Date
@@ -217,6 +224,7 @@ export type DeliveryAttemptWhereInput = {
   id?: Prisma.StringFilter<"DeliveryAttempt"> | string
   deliveryId?: Prisma.StringFilter<"DeliveryAttempt"> | string
   attemptNumber?: Prisma.IntFilter<"DeliveryAttempt"> | number
+  errorMessage?: Prisma.StringNullableFilter<"DeliveryAttempt"> | string | null
   status?: Prisma.EnumDeliveryStatusFilter<"DeliveryAttempt"> | $Enums.DeliveryStatus
   response?: Prisma.JsonNullableFilter<"DeliveryAttempt">
   createdAt?: Prisma.DateTimeFilter<"DeliveryAttempt"> | Date | string
@@ -227,6 +235,7 @@ export type DeliveryAttemptOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   deliveryId?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   response?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -240,6 +249,7 @@ export type DeliveryAttemptWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DeliveryAttemptWhereInput | Prisma.DeliveryAttemptWhereInput[]
   deliveryId?: Prisma.StringFilter<"DeliveryAttempt"> | string
   attemptNumber?: Prisma.IntFilter<"DeliveryAttempt"> | number
+  errorMessage?: Prisma.StringNullableFilter<"DeliveryAttempt"> | string | null
   status?: Prisma.EnumDeliveryStatusFilter<"DeliveryAttempt"> | $Enums.DeliveryStatus
   response?: Prisma.JsonNullableFilter<"DeliveryAttempt">
   createdAt?: Prisma.DateTimeFilter<"DeliveryAttempt"> | Date | string
@@ -250,6 +260,7 @@ export type DeliveryAttemptOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   deliveryId?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   response?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -267,6 +278,7 @@ export type DeliveryAttemptScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"DeliveryAttempt"> | string
   deliveryId?: Prisma.StringWithAggregatesFilter<"DeliveryAttempt"> | string
   attemptNumber?: Prisma.IntWithAggregatesFilter<"DeliveryAttempt"> | number
+  errorMessage?: Prisma.StringNullableWithAggregatesFilter<"DeliveryAttempt"> | string | null
   status?: Prisma.EnumDeliveryStatusWithAggregatesFilter<"DeliveryAttempt"> | $Enums.DeliveryStatus
   response?: Prisma.JsonNullableWithAggregatesFilter<"DeliveryAttempt">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DeliveryAttempt"> | Date | string
@@ -275,6 +287,7 @@ export type DeliveryAttemptScalarWhereWithAggregatesInput = {
 export type DeliveryAttemptCreateInput = {
   id?: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -285,6 +298,7 @@ export type DeliveryAttemptUncheckedCreateInput = {
   id?: string
   deliveryId: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -293,6 +307,7 @@ export type DeliveryAttemptUncheckedCreateInput = {
 export type DeliveryAttemptUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -303,6 +318,7 @@ export type DeliveryAttemptUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -312,6 +328,7 @@ export type DeliveryAttemptCreateManyInput = {
   id?: string
   deliveryId: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -320,6 +337,7 @@ export type DeliveryAttemptCreateManyInput = {
 export type DeliveryAttemptUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -329,6 +347,7 @@ export type DeliveryAttemptUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryId?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -348,6 +367,7 @@ export type DeliveryAttemptCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   deliveryId?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   response?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -361,6 +381,7 @@ export type DeliveryAttemptMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   deliveryId?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -369,6 +390,7 @@ export type DeliveryAttemptMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   deliveryId?: Prisma.SortOrder
   attemptNumber?: Prisma.SortOrder
+  errorMessage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -422,6 +444,7 @@ export type DeliveryAttemptUncheckedUpdateManyWithoutDeliveryNestedInput = {
 export type DeliveryAttemptCreateWithoutDeliveryInput = {
   id?: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -430,6 +453,7 @@ export type DeliveryAttemptCreateWithoutDeliveryInput = {
 export type DeliveryAttemptUncheckedCreateWithoutDeliveryInput = {
   id?: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -468,6 +492,7 @@ export type DeliveryAttemptScalarWhereInput = {
   id?: Prisma.StringFilter<"DeliveryAttempt"> | string
   deliveryId?: Prisma.StringFilter<"DeliveryAttempt"> | string
   attemptNumber?: Prisma.IntFilter<"DeliveryAttempt"> | number
+  errorMessage?: Prisma.StringNullableFilter<"DeliveryAttempt"> | string | null
   status?: Prisma.EnumDeliveryStatusFilter<"DeliveryAttempt"> | $Enums.DeliveryStatus
   response?: Prisma.JsonNullableFilter<"DeliveryAttempt">
   createdAt?: Prisma.DateTimeFilter<"DeliveryAttempt"> | Date | string
@@ -476,6 +501,7 @@ export type DeliveryAttemptScalarWhereInput = {
 export type DeliveryAttemptCreateManyDeliveryInput = {
   id?: string
   attemptNumber: number
+  errorMessage?: string | null
   status: $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -484,6 +510,7 @@ export type DeliveryAttemptCreateManyDeliveryInput = {
 export type DeliveryAttemptUpdateWithoutDeliveryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -492,6 +519,7 @@ export type DeliveryAttemptUpdateWithoutDeliveryInput = {
 export type DeliveryAttemptUncheckedUpdateWithoutDeliveryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -500,6 +528,7 @@ export type DeliveryAttemptUncheckedUpdateWithoutDeliveryInput = {
 export type DeliveryAttemptUncheckedUpdateManyWithoutDeliveryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   response?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -511,6 +540,7 @@ export type DeliveryAttemptSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   deliveryId?: boolean
   attemptNumber?: boolean
+  errorMessage?: boolean
   status?: boolean
   response?: boolean
   createdAt?: boolean
@@ -521,6 +551,7 @@ export type DeliveryAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   deliveryId?: boolean
   attemptNumber?: boolean
+  errorMessage?: boolean
   status?: boolean
   response?: boolean
   createdAt?: boolean
@@ -531,6 +562,7 @@ export type DeliveryAttemptSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   deliveryId?: boolean
   attemptNumber?: boolean
+  errorMessage?: boolean
   status?: boolean
   response?: boolean
   createdAt?: boolean
@@ -541,12 +573,13 @@ export type DeliveryAttemptSelectScalar = {
   id?: boolean
   deliveryId?: boolean
   attemptNumber?: boolean
+  errorMessage?: boolean
   status?: boolean
   response?: boolean
   createdAt?: boolean
 }
 
-export type DeliveryAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "deliveryId" | "attemptNumber" | "status" | "response" | "createdAt", ExtArgs["result"]["deliveryAttempt"]>
+export type DeliveryAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "deliveryId" | "attemptNumber" | "errorMessage" | "status" | "response" | "createdAt", ExtArgs["result"]["deliveryAttempt"]>
 export type DeliveryAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   delivery?: boolean | Prisma.NotificationDeliveryDefaultArgs<ExtArgs>
 }
@@ -566,6 +599,7 @@ export type $DeliveryAttemptPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: string
     deliveryId: string
     attemptNumber: number
+    errorMessage: string | null
     status: $Enums.DeliveryStatus
     response: runtime.JsonValue | null
     createdAt: Date
@@ -996,6 +1030,7 @@ export interface DeliveryAttemptFieldRefs {
   readonly id: Prisma.FieldRef<"DeliveryAttempt", 'String'>
   readonly deliveryId: Prisma.FieldRef<"DeliveryAttempt", 'String'>
   readonly attemptNumber: Prisma.FieldRef<"DeliveryAttempt", 'Int'>
+  readonly errorMessage: Prisma.FieldRef<"DeliveryAttempt", 'String'>
   readonly status: Prisma.FieldRef<"DeliveryAttempt", 'DeliveryStatus'>
   readonly response: Prisma.FieldRef<"DeliveryAttempt", 'Json'>
   readonly createdAt: Prisma.FieldRef<"DeliveryAttempt", 'DateTime'>

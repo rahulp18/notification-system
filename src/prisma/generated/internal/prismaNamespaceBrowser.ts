@@ -154,6 +154,7 @@ export const DeliveryAttemptScalarFieldEnum = {
   id: 'id',
   deliveryId: 'deliveryId',
   attemptNumber: 'attemptNumber',
+  errorMessage: 'errorMessage',
   status: 'status',
   response: 'response',
   createdAt: 'createdAt'

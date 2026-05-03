@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { DeliveryWorkerService } from './delivery-worker.service';
 import { NotificationDeliveryService } from './notification-delivery.service';
 import { NotificationProcessorService } from './notification-processor.service';
 import { NotificationController } from './notification.controller';
@@ -10,6 +11,7 @@ import { NotificationService } from './notification.service';
     NotificationService,
     NotificationProcessorService,
     NotificationDeliveryService,
+    DeliveryWorkerService,
   ],
   exports: [NotificationService],
 })

@@ -105,6 +105,7 @@ model DeliveryAttempt {
   delivery   NotificationDelivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
 
   attemptNumber Int
+  errorMessage  String?
   status        DeliveryStatus
   response      Json?
 
